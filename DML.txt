@@ -1,0 +1,40 @@
+CREATE TABLE Customer (
+ Customer_id VARCHAR2 (20) CONSTRAINT pk_customer PRIMARY KEY,
+ Customer_name VARCHAR2 (20) CONSTRAINT nn_customer NOT NULL,
+ Customer_tel NUMBER
+) ;
+
+
+
+CREATE TABLE Product (
+Product_id VARCHAR2 (20) CONSTRAINT pk_product PRIMARY KEY,
+Product_name VARCHAR2 (20) CONSTRAINT nn_product NOT NULL,
+Category VARCHAR2 (20),
+Price NUMBER CONSTRAINT c_product CHECK (Price>0)
+);
+
+
+CREATE TABLE Orders (
+Customer_id VARCHAR2 (20),
+Product_id VARCHAR2 (20),
+OrderDate DATE,
+Quantity NUMBER,
+Total_amount NUMBER,
+CONSTRAINT fk1_orders FOREIGN KEY (Customer_id) REFERENCES Customer
+(Customer_id),
+CONSTRAINT fk2_orders FOREIGN KEY (Product _id) REFERENCES Product (Product
+_id),
+CONSTRAINT pk_orders PRIMARY KEY (Customer_id, Product _id)
+) ;
+
+INSERT INTO Product (product_id , product_Name , category , price )
+VALUES (‘P01’ , ‘Samung Galaxy S20’ , ‘Smartphone’, ‘3299’),
+(‘P02’, ‘ASUS Notebook’ , ‘PC’ , ‘4599’ ) ;
+
+INSERT INTO Customer (customer_id , customer_name ,customer_tel)
+VALUES (‘C01’ , ‘ALI’ , ‘71321009’) ,
+(‘C02’ , ‘ASMA’ , ‘77345829’) ;
+
+INSERT INTO Orders (Customer_id , product_id , orderdata , quantity , total_amount)
+VALUES ( ‘C01’ , ‘P02’ , ‘NULL’ , ‘2’ , ‘9198’),
+(‘C02’ , ‘P01’ , ‘28/05/2020’ , ‘1’ , ‘3299’);
